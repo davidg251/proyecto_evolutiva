@@ -15,12 +15,7 @@ class Poblacion
 		end
 	end
 
-
-
-
 	def get_poblacion()
 		return @poblacion
 	end
-
-
 end

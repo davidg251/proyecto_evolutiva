@@ -10,7 +10,7 @@ def funcion_fitness(individuo)
 	ocurrencias = 0
 	
 	for i in 1..$tamanio_genotipo
-		#cuenta las ocurrencias de cada numero 1..n y lo multiplica
+	    #cuenta las ocurrencias de cada numero 1..n y lo multiplica
 		#por la tasa de castigo, es decir castigo ~ 0 buen indiv.
 		if individuo.get_genotipo.count(i.to_s) > 1
 			ocurrencias +=1
