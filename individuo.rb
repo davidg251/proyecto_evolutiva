@@ -1,9 +1,10 @@
 
 class Individuo
 
-	@fitness = 0
+	attr_accessor :fitness
 
 	def initialize(tamanio)
+		@fitness = 0
 		@tamanio = tamanio
 		@genotipo = ''
 		for i in 1..@tamanio
@@ -13,8 +14,4 @@ class Individuo
 		
 		return	@genotipo
 	end	
-
-	def get_genotipo()
-		return @genotipo
-	end
 end
