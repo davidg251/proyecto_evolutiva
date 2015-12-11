@@ -1,9 +1,10 @@
 
 class Individuo
 
-	attr_accessor :fitness
+	attr_accessor :fitness, :genotipo, :usado
 
 	def initialize(tamanio)
+		@usado = false
 		@fitness = 0
 		@tamanio = tamanio
 		@genotipo = ''

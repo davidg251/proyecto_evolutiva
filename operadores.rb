@@ -2,7 +2,7 @@ class Operadores
 
     def self.mutacion individuo
         tamanio_individuo = individuo.length
-        nuevo_alelo = rand( 0..9 ).to_s;
+        nuevo_alelo = rand( 0..@tamanio_individuo ).to_s;#no se si esta bien
         posicion_reemplazo = rand( 0..tamanio_individuo - 2 )
         individuo[posicion_reemplazo] = nuevo_alelo
         puts individuo
@@ -32,6 +32,21 @@ class Operadores
     end
 
     def self.fitness individuo
-            
+        
+        tasa_castigo = 1.0 / $tamanio_genotipo
+        castigo = 0
+        ocurrencias = 0
+    
+            for i in 1..$tamanio_genotipo
+                #cuenta las ocurrencias de cada numero 1..n y lo multiplica
+                #por la tasa de castigo, es decir castigo ~ 0 buen indiv.
+                if individuo.get_genotipo.count(i.to_s) > 1
+                    ocurrencias +=1
+                end
+            end
+        
+        individuo.fitness = ocurrencias*tasa_castigo
+        puts "fitness individuo #{ocurrencias*tasa_castigo}"
+
     end
 end
