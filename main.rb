@@ -6,6 +6,6 @@ require './algoritmo'
                     tamanio_mating_pool, max_iteraciones
 =end
 
-reinas = Algoritmo.new(100, 8, 0.2, 0.5, 3, 1000 )
+reinas = Algoritmo.new(10000, 11, 0.2, 0.5, 7000, 1)
 reinas.generar_poblacion()
 reinas.ejecutar()

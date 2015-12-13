@@ -23,8 +23,8 @@ class Poblacion
 
 	def ranking
 
-		ordenado = @poblacion.sort_by(&:fitness)
-		@poblacion = ordenado
+		@poblacion = @poblacion.sort_by(&:fitness)
+		
 	end	
 
 

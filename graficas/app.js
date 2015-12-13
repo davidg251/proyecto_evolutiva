@@ -1,10 +1,19 @@
  var tablero = document.getElementById("tablero");
+ var boton = document.getElementById("pintar");
+ 
+ var ctx=tablero.getContext("2d");
 
-var ctx=tablero.getContext("2d");
+
+ boton.addEventListener('click', dibujar_tablero);
 
 
- function dibujar_tablero(cromosoma)
+
+ function dibujar_tablero()
  {
+ 	
+ 	ctx.clearRect(0, 0, tablero.width, tablero.height);
+ 	cromosoma = document.getElementById("cromosoma").value;
+ 	alert(cromosoma)
  	n = cromosoma.length;
  	tamanio_rectangulo = Math.round(400 / n) ;
  	fila = 0;
@@ -63,5 +72,3 @@ var ctx=tablero.getContext("2d");
  }
 
 
-
-dibujar_tablero("37261548");
