@@ -15,6 +15,7 @@ class Operadores
         genotipo_individuo[posicion_reemplazo_b] = alelo_temporal
 
         individuo.genotipo = genotipo_individuo
+        individuo.usado = false
         return individuo
     end
 
@@ -53,6 +54,8 @@ class Operadores
 
         padre.genotipo = p
         madre.genotipo = m
+        padre.usado = false
+        madre.usado = false
 
         return padre, madre
     end
@@ -108,12 +111,39 @@ class Operadores
             end
         end        
     end
+  
+  def self.seleccion (poblacion, n)
+        numero_individuos = poblacion.length
+        individuos_seleccionados = []
+        i = 0;
+        
+        while i <= n do
+            
+            posicion = rand( 0..numero_individuos - 1 )
+
+            
+            if poblacion[posicion].usado
+
+                posicion = rand( 0..numero_individuos - 1 )
+                    
+            end
+            
+            individuos_seleccionados << poblacion[posicion]
+            poblacion[posicion].usado = true
+            i +=1
+        
+        end
+
+        return individuos_seleccionados
+        individuos_seleccionados = []
+    end 
 
 
 
 
 end
 
+  
 =begin
 padre = Individuo.new(6)
 madre = Individuo.new(6)

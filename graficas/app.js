@@ -64,4 +64,4 @@ var ctx=tablero.getContext("2d");
 
 
 
-dibujar_tablero("65741832");
+dibujar_tablero("64513782");

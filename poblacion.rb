@@ -23,31 +23,10 @@ class Poblacion
 
 	def ranking
 
-		@poblacion = @poblacion.sort_by(&:fitness)
-
+		ordenado = @poblacion.sort_by(&:fitness)
+		@poblacion = ordenado
 	end	
 
 
-	def seleccion n
-
-		individuos_seleccionados = []
-		i = 0;
-		
-		while i < n do
-   			
-   			posicion = rand( 0..@numero_individuos - 1 )
-
-   			if @poblacion[posicion].usado
-				posicion = rand( 0..@numero_individuos - 1 )
-			end
-			@poblacion[posicion].usado = true
-   			individuos_seleccionados << @poblacion[posicion]
-			i +=1
-		
-		end
-
-		return individuos_seleccionados
-	
-	end	
 
 end
