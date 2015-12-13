@@ -1,4 +1,4 @@
-# require './individuo'
+require './individuo'
 
 class Operadores
 
@@ -21,28 +21,38 @@ class Operadores
     def self.cruce (padre, madre)
         genotipo_padre = padre.genotipo
         genotipo_madre = madre.genotipo
+        genotipo_temporal = genotipo_padre
 
-        tamanio_genotipo = genotipo_padre.length
+        inicio = genotipo_padre[0]
+        ultimo = genotipo_madre[0]
+        ciclo = inicio + ultimo
 
-        case tamanio_genotipo 
-
-            when 4 
-                corte_a = 2
-                corte_b = 3            
-            else
-                loop do 
-                    corte_a = rand( 1..tamanio_genotipo - 2 )
-                    corte_b = rand( 1..tamanio_genotipo - 2 )
-                    break if (corte_a - corte_b).abs <= 1
-                end
+        while inicio != ultimo
+            indice = genotipo_padre.index(ultimo)
+            ultimo = genotipo_madre[indice]
+            ciclo += ultimo
         end
 
-        segmento_padre = genotipo_padre[corte_a,corte_b]
-        genotipo_padre[corte_a,corte_b] = genotipo_madre[corte_a,corte_b]
-        genotipo_madre[corte_a,corte_b] = segmento_padre
+        ciclo = ciclo.chop
 
-        padre.genotipo = genotipo_padre
-        madre.genotipo = genotipo_madre
+
+        m = genotipo_madre
+        p = genotipo_padre
+
+        puts "ciclo: " + ciclo
+
+        for i in 0..p.length - 1
+            if !ciclo.include? p[i]
+                temp = p[i]
+                p[i] = m[i]
+                m[i] = temp
+            end
+        end
+        puts m
+        puts p
+
+        padre.genotipo = p
+        madre.genotipo = m
 
         return padre, madre
     end
@@ -67,10 +77,11 @@ class Operadores
     end
 end
 
-# padre = Individuo.new(6)
-# # madre = Individuo.new(6)
-# puts padre.genotipo
-# # hijos = Operadores.cruce(padre, madre)
-# # puts hijos[0].genotipo
-# # puts hijos[1].genotipo
-# puts Operadores.mutacion(padre).genotipo
+padre = Individuo.new(6)
+madre = Individuo.new(6)
+puts "padre: " + padre.genotipo
+puts "madre: " + madre.genotipo
+hijos = Operadores.cruce(padre, madre)
+
+puts "hijo 1: " + hijos[0].genotipo
+puts "hijo 2: " + hijos[1].genotipo
