@@ -3,7 +3,8 @@ require './operadores'
 
 class Poblacion
 
-	attr_accessor :poblacion
+	attr_accessor :poblacion, :numero_individuos
+
 
 	def initialize(numero_individuos, tamanio_genotipo )
 		
@@ -22,10 +23,9 @@ class Poblacion
 
 	def ranking
 
-		@poblacion = @poblacion.sort_by {|individuo| individuo.fitness}
+		poblacion.sort_by(&:fitness)
 
 	end	
-
 
 
 	def seleccion n
@@ -36,7 +36,7 @@ class Poblacion
 		while i < n do
    			
    			posicion = rand( 0..@numero_individuos - 1 )
-   			
+
    			if @poblacion[posicion].usado
 				posicion = rand( 0..@numero_individuos - 1 )
 			end

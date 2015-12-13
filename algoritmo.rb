@@ -46,15 +46,58 @@ class Algoritmo
         al objeto individuo , tiene algunos fallos , (revisar poblacion.rb)
     
 =end
-       @poblacion.ranking     
-       pobla = @poblacion.poblacion
-       puts 'poblacion ranking: '
-       pobla.each do |i|
-           print i.genotipo,",", i.fitness
-           puts ""
-       end
+    max_iteraciones = 1
+    iteraciones = 0
+    mating_pool = Poblacion.new(0,0)
+    nuevos_individuos = []
+
+    while  (iteraciones < max_iteraciones) || (@poblacion.poblacion[0].fitness == 0.0)
+
+        
+        mating_pool.poblacion = @poblacion.seleccion(@tamanio_mating_pool)
+        mating_pool.numero_individuos = @tamanio_mating_pool
+
+        
+        #if rand >= @probabilidad_cruce
+        if true    
+            padres = mating_pool.seleccion(2)
+            nuevos_individuos << Operadores.cruce(padres[0], padres[1])
+        end
+            
+        #if rand >= @probabilidad_mutacion
+        if true    
+            individuo = mating_pool.seleccion(1)
+            nuevos_individuos << Operadores.mutacion(individuo[0])
+        end
+
+        
+        @poblacion.ranking()
+
+        nuevos_individuos.each do |i|
+            
+            @poblacion.poblacion.pop()
+            @poblacion.poblacion << i
+        end    
+
+        
+       
+        iteraciones += 1
+    end
+
+    puts "final"
+    puts @poblacion.poblacion[0].genotipo
+    puts @poblacion.poblacion[0].fitness
+
+
+
+
 
 =begin
+        puts 'matin pool'
+        mating_pool.poblacion.each do |i|
+            puts i.genotipo
+        end    
+
         # de aqui para abajo test o debug 
         sele = @poblacion.seleccion(5)
         puts sele
@@ -62,6 +105,13 @@ class Algoritmo
         sele.each do |i|
             puts i.genotipo
         end
+       @poblacion.ranking     
+       pobla = @poblacion.poblacion
+       puts 'poblacion ranking: '
+       pobla.each do |i|
+           print i.genotipo,",", i.fitness
+           puts ""
+       end
 =end
 
     end    

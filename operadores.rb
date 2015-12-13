@@ -62,10 +62,11 @@ class Operadores
     def self.funcion_fitness individuo
         #el codigo esta feo por el trasnocho hay
         #redundancias y codigo extra por razones de debú
-        tasa_castigo = 1.0 / individuo.tamanio
+        n =  individuo.tamanio
+        tasa_castigo = 1.0 / n
 
-        for i in 1..8
-            for j in 1..8
+        for i in 1..n
+            for j in 1..n
 
                 if i == j 
                     break
