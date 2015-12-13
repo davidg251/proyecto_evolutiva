@@ -20,15 +20,10 @@ class Algoritmo
     def generar_poblacion
         
         @poblacion = Poblacion.new(@numero_individuos, @cantidad_reinas) 
-        
-        # de aqui para abajo test o debug 
-        pobla = @poblacion.poblacion
-        puts 'poblacion inicial: '
-        pobla.each do |i|
+        puts "inicial_"
+        @poblacion.poblacion.each do |i|
             puts i.genotipo
-        end
-
-       
+        end        
     end
 
 
@@ -46,14 +41,14 @@ class Algoritmo
         al objeto individuo , tiene algunos fallos , (revisar poblacion.rb)
     
 =end
-    max_iteraciones = 1
+    max_iteraciones = 5
     iteraciones = 0
     mating_pool = Poblacion.new(0,0)
     nuevos_individuos = []
 
     while  (iteraciones < max_iteraciones) || (@poblacion.poblacion[0].fitness == 0.0)
 
-        
+        nuevos_individuos = []    
         mating_pool.poblacion = @poblacion.seleccion(@tamanio_mating_pool)
         mating_pool.numero_individuos = @tamanio_mating_pool
 
@@ -72,9 +67,21 @@ class Algoritmo
 
         
         @poblacion.ranking()
+          puts "ranking"
+          @poblacion.poblacion.each do |i|
+            print i.genotipo, ", ", i.fitness
+            puts ""
+        end   
 
+        puts "matin"
+        mating_pool.poblacion.each do |i|
+            puts i.genotipo
+        end  
+        
         nuevos_individuos.each do |i|
-            
+            #print i.genotipo #," --",i.fitness
+           # puts i.fitness
+            #puts ""
             @poblacion.poblacion.pop()
             @poblacion.poblacion << i
         end    
@@ -83,7 +90,7 @@ class Algoritmo
        
         iteraciones += 1
     end
-
+    #puts nuevos_individuos
     puts "final"
     puts @poblacion.poblacion[0].genotipo
     puts @poblacion.poblacion[0].fitness

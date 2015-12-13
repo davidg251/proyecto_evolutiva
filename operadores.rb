@@ -39,7 +39,7 @@ class Operadores
         m = genotipo_madre
         p = genotipo_padre
 
-        puts "ciclo: " + ciclo
+        #puts "ciclo: " + ciclo
 
         for i in 0..p.length - 1
             if !ciclo.include? p[i]
@@ -48,8 +48,8 @@ class Operadores
                 m[i] = temp
             end
         end
-        puts m
-        puts p
+        #puts m
+        #puts p
 
         padre.genotipo = p
         madre.genotipo = m
@@ -57,9 +57,25 @@ class Operadores
         return padre, madre
     end
 
-
-
     def self.funcion_fitness individuo
+        n =  individuo.tamanio
+        tasa_castigo = 1.0 / n
+        for i in 1..n
+            for j in 1..n
+
+                if i == j 
+                    
+                    break
+                
+                elsif (i - j).abs == ( individuo.genotipo[i-1].to_i - individuo.genotipo[j-1].to_i ).abs
+                    individuo.fitness = individuo.fitness + tasa_castigo  
+                end                  
+            end
+        end  
+
+    end
+
+    def self.funcion_fitness2 individuo
         #el codigo esta feo por el trasnocho hay
         #redundancias y codigo extra por razones de debú
         n =  individuo.tamanio
@@ -69,6 +85,7 @@ class Operadores
             for j in 1..n
 
                 if i == j 
+                    
                     break
 
                 elsif (i - individuo.genotipo[i-1].to_i) == (j - individuo.genotipo[j-1].to_i)    
@@ -78,6 +95,15 @@ class Operadores
                 elsif (individuo.genotipo[i-1].to_i - individuo.genotipo[j-1].to_i) == (i - j)   
 
                      individuo.fitness = individuo.fitness + tasa_castigo   
+                
+                elsif (i + individuo.genotipo[i-1].to_i) == (j + individuo.genotipo[j-1].to_i)
+                    
+                    individuo.fitness = individuo.fitness + tasa_castigo
+                
+                elsif  (individuo.genotipo[i-1].to_i - individuo.genotipo[j-1].to_i) == (j - i)  
+                
+                    individuo.fitness = individuo.fitness + tasa_castigo
+
                 end
             end
         end        
