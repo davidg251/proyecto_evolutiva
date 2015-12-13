@@ -109,7 +109,7 @@ class Algoritmo
     end
         
     puts "final"
-    puts @poblacion.poblacion[0].genotipo
+    puts @poblacion.poblacion[0].genotipo.join(',')
     puts @poblacion.poblacion[0].fitness
     (@poblacion.poblacion[0].fitness == 0.0)
 

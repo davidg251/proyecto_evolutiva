@@ -22,38 +22,31 @@ class Operadores
     def self.cruce (padre, madre)
         genotipo_padre = padre.genotipo
         genotipo_madre = madre.genotipo
-        genotipo_temporal = genotipo_padre
 
         inicio = genotipo_padre[0]
         ultimo = genotipo_madre[0]
-        ciclo = inicio + ultimo
+        ciclo = Array.new()
+        ciclo.push(inicio)
+        ciclo.push(ultimo)
 
         while inicio != ultimo
             indice = genotipo_padre.index(ultimo)
             ultimo = genotipo_madre[indice]
-            ciclo += ultimo
+            ciclo.push(ultimo)
         end
+               
+        ciclo = ciclo[0...-1] # Se elimina el ultimo elemento del array
 
-        ciclo = ciclo.chop
-
-
-        m = genotipo_madre
-        p = genotipo_padre
-
-        #puts "ciclo: " + ciclo
-
-        for i in 0..p.length - 1
-            if !ciclo.include? p[i]
-                temp = p[i]
-                p[i] = m[i]
-                m[i] = temp
+        (0..genotipo_padre.length-1).each do |i|
+            if !ciclo.include?(genotipo_padre[i])
+                temp = genotipo_padre[i]
+                genotipo_padre[i] = genotipo_madre[i]
+                genotipo_madre[i] = temp
             end
         end
-        #puts m
-        #puts p
 
-        padre.genotipo = p
-        madre.genotipo = m
+        padre.genotipo = genotipo_padre
+        madre.genotipo = genotipo_madre
         padre.usado = false
         madre.usado = false
 
@@ -104,27 +97,25 @@ class Operadores
         return individuos_seleccionados
         individuos_seleccionados = []
     end 
-
-
-
-
 end
 
   
 =begin
 padre = Individuo.new(6)
+puts padre.genotipo.join
 madre = Individuo.new(6)
-puts "padre: " + padre.genotipo
-puts "madre: " + madre.genotipo
+puts "padre: " + padre.genotipo.join
+puts "madre: " + madre.genotipo.join
+# puts Operadores.mutacion(padre).genotipo.join
 hijos = Operadores.cruce(padre, madre)
 
-puts "hijo 1: " + hijos[0].genotipo
-puts "hijo 2: " + hijos[1].genotipo
+puts "hijo 1: " + hijos[0].genotipo.join
+puts "hijo 2: " + hijos[1].genotipo.join
 
 
-padre = Individuo.new(6)
-puts padre.genotipo
-Operadores.funcion_fitness(padre)
-puts padre.genotipo
-puts padre.fitness
+# padre = Individuo.new(6)
+# puts padre.genotipo
+# Operadores.funcion_fitness(padre)
+# puts padre.genotipo
+# puts padre.fitness
 =end
