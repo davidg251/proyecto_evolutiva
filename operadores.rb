@@ -57,26 +57,37 @@ class Operadores
         return padre, madre
     end
 
-    def self.fitness individuo
-        
-        tasa_castigo = 1.0 / $tamanio_genotipo
-        castigo = 0
-        ocurrencias = 0
-    
-            for i in 1..$tamanio_genotipo
-                #cuenta las ocurrencias de cada numero 1..n y lo multiplica
-                #por la tasa de castigo, es decir castigo ~ 0 buen indiv.
-                if individuo.get_genotipo.count(i.to_s) > 1
-                    ocurrencias +=1
+
+
+    def self.funcion_fitness individuo
+        #el codigo esta feo por el trasnocho hay
+        #redundancias y codigo extra por razones de debú
+        tasa_castigo = 1.0 / individuo.tamanio
+
+        for i in 1..8
+            for j in 1..8
+
+                if i == j 
+                    break
+
+                elsif (i - individuo.genotipo[i-1].to_i) == (j - individuo.genotipo[j-1].to_i)    
+
+                    individuo.fitness = individuo.fitness + tasa_castigo
+
+                elsif (individuo.genotipo[i-1].to_i - individuo.genotipo[j-1].to_i) == (i - j)   
+
+                     individuo.fitness = individuo.fitness + tasa_castigo   
                 end
             end
-        
-        individuo.fitness = ocurrencias*tasa_castigo
-        puts "fitness individuo #{ocurrencias*tasa_castigo}"
-
+        end        
     end
+
+
+
+
 end
 
+=begin
 padre = Individuo.new(6)
 madre = Individuo.new(6)
 puts "padre: " + padre.genotipo
@@ -85,3 +96,11 @@ hijos = Operadores.cruce(padre, madre)
 
 puts "hijo 1: " + hijos[0].genotipo
 puts "hijo 2: " + hijos[1].genotipo
+
+
+padre = Individuo.new(6)
+puts padre.genotipo
+Operadores.funcion_fitness(padre)
+puts padre.genotipo
+puts padre.fitness
+=end

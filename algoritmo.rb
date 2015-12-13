@@ -33,6 +33,7 @@ class Algoritmo
 
 
 
+
     def ejecutar
 =begin
         este deberia ser el metodo que ejecute el algoritmo
@@ -43,17 +44,25 @@ class Algoritmo
         de individuos a seleccionar.
         para no seleccionar el mismo individuo coloque una bandera (true/false)
         al objeto individuo , tiene algunos fallos , (revisar poblacion.rb)
-
+    
 =end
+       @poblacion.ranking     
+       pobla = @poblacion.poblacion
+       puts 'poblacion ranking: '
+       pobla.each do |i|
+           print i.genotipo,",", i.fitness
+           puts ""
+       end
+
+=begin
+        # de aqui para abajo test o debug 
         sele = @poblacion.seleccion(5)
         puts sele
-
-
-        # de aqui para abajo test o debug 
         puts 'seleccion: '
         sele.each do |i|
             puts i.genotipo
         end
+=end
 
     end    
 

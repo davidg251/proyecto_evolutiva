@@ -1,4 +1,5 @@
 require './individuo'
+require './operadores'
 
 class Poblacion
 
@@ -12,10 +13,19 @@ class Poblacion
 
 		for i in 1..@numero_individuos
 			temp = Individuo.new(@t)
+			Operadores.funcion_fitness(temp)
 			@poblacion << temp
 			
 		end
 	end
+
+
+	def ranking
+
+		@poblacion = @poblacion.sort_by {|individuo| individuo.fitness}
+
+	end	
+
 
 
 	def seleccion n
