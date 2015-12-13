@@ -33,23 +33,13 @@ class Algoritmo
 
 
     def ejecutar
-=begin
-        este deberia ser el metodo que ejecute el algoritmo
-        por ahora solo hay ejemplos de como se pueden seleccionar
-        individuos de la poblacion.
-        delegue la responsabilidad de seleccion a la clase poblacion
-        mediante un metodo generico que recibe como parametro la cantidad
-        de individuos a seleccionar.
-        para no seleccionar el mismo individuo coloque una bandera (true/false)
-        al objeto individuo , tiene algunos fallos , (revisar poblacion.rb)
-    
-=end
+
     
     iteraciones = 0
    
     
 
-    while  (iteraciones < @max_iteraciones) || (@poblacion.poblacion[0].fitness == 0.0)
+    while  (iteraciones < @max_iteraciones) && (@poblacion.poblacion[0].fitness == 0.0)
 
         nuevos_individuos = []    
         mating_pool = []
@@ -58,7 +48,7 @@ class Algoritmo
 
 
         
-        if rand >= @probabilidad_cruce
+        if true
             
             padres = Operadores.seleccion(mating_pool , 2)
             temporal = Operadores.cruce(padres[0], padres[1])
@@ -67,7 +57,7 @@ class Algoritmo
         
         end
             
-        if rand >= @probabilidad_mutacion
+        if true
            
             individuo = Operadores.seleccion(mating_pool, 1)
             nuevos_individuos << Operadores.mutacion(individuo[0])
@@ -94,7 +84,7 @@ class Algoritmo
             @poblacion.poblacion << nuevos_individuos[0] 
             @poblacion.poblacion << nuevos_individuos[1] 
 
-        elsif w == 2    
+        elsif w == 3    
             @poblacion.poblacion.pop()
             @poblacion.poblacion.pop()
             @poblacion.poblacion.pop()
